@@ -15,8 +15,6 @@ soundsFolder = '{}/sounds/'.format(root)
 
 run = True
 rdr = RFID()
-util = rdr.util()
-util.debug = True
 
 lastCommandFileName = None
 allowedCommands = ['next', 'prev', 'pause', 'play', 'stop', 'toggle', 'album', 'title']

@@ -77,6 +77,8 @@ signal.signal(signal.SIGINT, end_read)
 
 signal.signal(signal.SIGHUP, handle_hup)
 
+playSuccessSound()
+
 while run:
     lastReadTime = time.time()
     time.sleep(0.1)

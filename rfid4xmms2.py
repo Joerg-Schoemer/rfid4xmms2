@@ -17,7 +17,7 @@ run = True
 rdr = RFID()
 
 lastCommandFileName = None
-allowedCommands = ['next', 'prev', 'pause', 'play', 'stop', 'toggle', 'album', 'title']
+allowedCommands = ['next', 'prev', 'pause', 'play', 'stop', 'toggle', 'album', 'title', 'url', 'volume']
 
 def logging(message):
     print(message)
@@ -51,6 +51,21 @@ def playTitle(pattern):
     xmms2cmd('clear')
     xmms2cmd('add title:' + pattern)
     xmms2cmd('play')
+
+def playUrl(url):
+    xmms2cmd('stop')
+    xmms2cmd('clear')
+    xmms2cmd('add ' + url)
+    xmms2cmd('play')
+
+def volume(direction):
+    if direction == 'up':
+        xmms2cmd('server volume +10')
+    elif direction == 'down':
+        xmms2cmd('server volume -10')
+    else:
+        logging('invalid direction value \'' + direction + '\'')
+        playErrorSound()
 
 def generateCommandFileName(uid):
     return commandsFolder + '_'.join("{:02X}".format(i) for i in uid) + '.cmd'
@@ -120,6 +135,14 @@ while run:
                 titlePattern = f.readline().strip()
                 playTitle(titlePattern)
                 logging('playing title ' + titlePattern)
+            elif cmd == 'url':
+                url = f.readline().strip()
+                playUrl(url)
+                logging('playing url ' + url)
+            elif cmd == 'volume':
+                direction = f.readline().strip()
+                volume(direction)
+                logging('executing \'' + cmd +'\'' + ' direction=\'' + direction + '\'')
             else:
                 xmms2cmd(cmd)
                 logging('executing \'' + cmd +'\'')

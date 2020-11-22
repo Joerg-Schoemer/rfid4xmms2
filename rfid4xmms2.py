@@ -50,7 +50,7 @@ def xmms2cmd(cmd):
 def play_album(pattern):
     xmms2cmd('stop')
     xmms2cmd('clear')
-    xmms2cmd('add -o tracknr album:' + pattern)
+    xmms2cmd('add -o partofset,tracknr album:' + pattern)
     xmms2cmd('play')
 
 

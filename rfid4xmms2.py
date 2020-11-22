@@ -45,7 +45,8 @@ def play_success_sound():
 
 
 def xmms2cmd(cmd):
-    subprocess.run(['su', 'pi', '-c xmms2 ' + cmd])
+    logging(cmd)
+    subprocess.run(['su', 'pi', '-c xmms2 ' + cmd], check=True)
 
 
 def play_album(pattern):
@@ -72,11 +73,11 @@ def play_url(url):
 def play_advent(album):
 
     today = datetime.date.today()
-    if today.month == 12:
-        todaysDay = str(today.day).zfile(2)
+    if today.month == 12 and today.day <= 24:
+        todaysDay = str(today.day)
         xmms2cmd('stop')
         xmms2cmd('clear')
-        xmms2cmd('add \'album:' + album + ' AND title:' + todaysDay + '\'')
+        xmms2cmd('add album:' + album + ' AND tracknr:' + todaysDay)
         xmms2cmd('play')
     else:
         play_album(album)

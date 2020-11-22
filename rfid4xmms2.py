@@ -2,6 +2,7 @@
 
 import signal
 import time
+import datetime
 import sys
 import subprocess
 import pygame
@@ -18,7 +19,7 @@ run = True
 rdr = RFID()
 
 lastCommandFileName = None
-allowedCommands = ['next', 'prev', 'pause', 'play', 'stop', 'toggle', 'album', 'title', 'url', 'volume']
+allowedCommands = ['next', 'prev', 'pause', 'play', 'stop', 'toggle', 'album', 'title', 'url', 'volume', 'advent']
 
 
 def logging(message):
@@ -27,8 +28,8 @@ def logging(message):
 
 
 def play_sound(file):
-    pygame.init()
-    pygame.mixer.init()
+    if not pygame.mixer.get_init():
+        pygame.mixer.init()
     pygame.mixer.music.load(file)
     pygame.mixer.music.play()
     while pygame.mixer.music.get_busy():
@@ -44,7 +45,8 @@ def play_success_sound():
 
 
 def xmms2cmd(cmd):
-    subprocess.run(['su', 'pi', '-c xmms2 ' + cmd])
+    logging(cmd)
+    subprocess.run(['su', 'pi', '-c xmms2 ' + cmd], check=True)
 
 
 def play_album(pattern):
@@ -66,6 +68,19 @@ def play_url(url):
     xmms2cmd('clear')
     xmms2cmd('add ' + url)
     xmms2cmd('play')
+
+
+def play_advent(album):
+
+    today = datetime.date.today()
+    if today.month == 12 and today.day <= 24:
+        todaysDay = str(today.day)
+        xmms2cmd('stop')
+        xmms2cmd('clear')
+        xmms2cmd('add album:' + album + ' AND tracknr:' + todaysDay)
+        xmms2cmd('play')
+    else:
+        play_album(album)
 
 
 def volume(direction):
@@ -109,9 +124,7 @@ def handle_hup(signal, frame):
 
 
 signal.signal(signal.SIGINT, end_read)
-
 signal.signal(signal.SIGHUP, handle_hup)
-
 play_success_sound()
 
 while run:
@@ -156,6 +169,10 @@ while run:
             albumPattern = file.readline().strip()
             play_album(albumPattern)
             logging('playing album ' + albumPattern)
+        elif cmdAction == 'advent':
+            albumPattern = file.readline().strip()
+            play_advent(albumPattern)
+            logging('playing advent album ' + albumPattern)
         elif cmdAction == 'title':
             titlePattern = file.readline().strip()
             play_title(titlePattern)

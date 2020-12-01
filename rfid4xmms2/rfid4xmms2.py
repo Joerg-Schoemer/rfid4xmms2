@@ -76,7 +76,7 @@ def play_advent(pattern):
     if today.month == 12 and today.day <= 24:
         xmms2cmd('stop')
         xmms2cmd('clear')
-        xmms2cmd('add album:' + pattern + ' AND tracknr:' + today.day)
+        xmms2cmd('add album: %s AND tracknr: %d' % (pattern, today.day))
         xmms2cmd('play')
     else:
         play_album(pattern)

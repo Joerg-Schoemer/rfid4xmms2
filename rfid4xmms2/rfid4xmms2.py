@@ -19,7 +19,7 @@ logging.basicConfig(level=logging.INFO)
 root = "/home/pi/rfid4xmms2"
 commands_folder = '{}/commands/'.format(root)
 unknown_folder = '{}/unknown/'.format(root)
-sounds_folder = '{}/sounds/'.format(root)
+sounds_folder = '{}/rfid4xmms2/sounds/'.format(root)
 
 run = True
 rdr = RFID()

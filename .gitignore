@@ -1,5 +1,7 @@
 .idea
 *.iml
-commands
-unknown
-
+commands/
+unknown/
+dist/
+build/
+rfid4xmms2.egg-info/

@@ -126,7 +126,7 @@ def create_unknown_file(_uuid):
     file_name = unknown_folder + generate_file_name(_uuid)
     Path(file_name).touch()
     _uid = pwd.getpwnam('pi').pw_uid
-    _gid = grp.getgrnam('pi').pw_gid
+    _gid = grp.getgrnam('pi').gr_gid
     os.chown(file_name, _uid, _gid)
 
 

@@ -20,7 +20,7 @@ logging.basicConfig(level=logging.INFO)
 config = Config()
 xmms2ctl = Xmms2Ctl(config.SCRIPTS_DIR, config.COMMANDS_DIR)
 run = True
-rdr = RFID()
+reader = RFID()
 last_command_file_name = None
 
 
@@ -62,7 +62,7 @@ def end_read():
     global run
     logging.info("\nCtrl+C captured, ending read.")
     run = False
-    rdr.cleanup()
+    reader.cleanup()
     xmms2ctl.stop()
     sys.exit()
 
@@ -84,14 +84,14 @@ def doit():
     while run:
         last_read_time = time.time()
         time.sleep(0.1)
-        rdr.wait_for_tag()
+        reader.wait_for_tag()
 
-        (error, data) = rdr.request()
+        (error, data) = reader.request()
         if error:
             set_last_command_file_name(None)
             continue
 
-        (error, uid) = rdr.anticoll()
+        (error, uid) = reader.anticoll()
         if error:
             set_last_command_file_name(None)
             continue

@@ -5,3 +5,4 @@ unknown/
 dist/
 build/
 rfid4xmms2.egg-info/
+venv/

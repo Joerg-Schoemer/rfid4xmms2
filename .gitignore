@@ -6,3 +6,4 @@ dist/
 build/
 rfid4xmms2.egg-info/
 venv/
+__pycache__/

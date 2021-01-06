@@ -48,7 +48,7 @@ class Xmms2Ctl:
     def play(self, kind: str, what: str):
         if kind in ['play', 'toggle', 'pause', 'stop', 'prev', 'next']:
             self.action(kind)
-            return True
+            return None
 
         if kind not in ['album', 'advent', 'url', 'title']:
             return False

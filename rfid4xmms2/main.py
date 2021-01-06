@@ -97,6 +97,7 @@ def doit():
             continue
 
         card_name = generate_file_name(uid)
+        logging.info('card_name %s' % card_name)
         command_file_name = generate_command_file_name(card_name)
         if time.time() - last_read_time < 0.5 and command_file_name_not_changed(command_file_name):
             continue
@@ -108,13 +109,16 @@ def doit():
             set_last_command_file_name(command_file_name)
             continue
 
-        if not xmms2ctl.play_card(card_name):
-            play_error_sound()
-        else:
-            play_success_sound()
-            xmms2ctl.start()
-
         set_last_command_file_name(command_file_name)
+
+        play_card = xmms2ctl.play_card(card_name)
+        if play_card is not None and not play_card:
+            play_error_sound()
+            continue
+
+        play_success_sound()
+        if play_card is not None and play_card:
+            xmms2ctl.start()
 
 
 signal.signal(signal.SIGINT, end_read)

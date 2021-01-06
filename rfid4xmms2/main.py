@@ -6,15 +6,15 @@ import os
 import pwd
 import sys
 import time
+import signal
 from os.path import join
 from pathlib import Path
-from signal import signal, SIGINT, SIGHUP
 
 import pygame
 from pirc522 import RFID
 
-from rfid4xmms2.config import Config
-from rfid4xmms2.xmms2 import Xmms2Ctl
+from config import Config
+from xmms2 import Xmms2Ctl
 
 logging.basicConfig(level=logging.INFO)
 config = Config()
@@ -117,7 +117,7 @@ def doit():
         set_last_command_file_name(command_file_name)
 
 
-signal(SIGINT, end_read)
-signal(SIGHUP, handle_hup)
+signal.signal(signal.SIGINT, end_read)
+signal.signal(signal.SIGHUP, handle_hup)
 play_success_sound()
 doit()

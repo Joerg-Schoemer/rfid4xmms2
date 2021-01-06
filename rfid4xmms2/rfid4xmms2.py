@@ -68,7 +68,7 @@ def end_read():
 
 
 def handle_hup():
-    logging.debug("SIGHUP received")
+    logging.warning("SIGHUP received")
 
 
 def create_unknown_file(_card_name):

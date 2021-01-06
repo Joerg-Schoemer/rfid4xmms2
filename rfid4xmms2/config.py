@@ -2,7 +2,8 @@ from logging import debug
 from os import environ
 
 
-class Config(object):
+class Config:
+
     COMMANDS_DIR = environ.get('COMMANDS_DIR') or './commands'
     MEDIA_LIB = environ.get('MEDIA_LIB') or './music'
     SCRIPTS_DIR = environ.get('SCRIPTS_DIR') or './scripts'

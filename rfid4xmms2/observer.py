@@ -2,7 +2,6 @@ import grp
 import logging
 import os
 import pwd
-import signal
 import sys
 import time
 from os.path import join
@@ -84,13 +83,13 @@ def doit():
             continue
 
         card_name = generate_file_name(uid)
-        logger.info('card_name %s' % card_name)
+        logger.info('card_name %s', card_name)
         command_file_name = generate_command_file_name(card_name)
         if time.time() - last_read_time < 0.5 and command_file_name_not_changed(command_file_name):
             continue
 
         if not Path(command_file_name).is_file():
-            logger.info('command file \'' + command_file_name + '\' not found')
+            logger.info('command file \'%s\' not found', command_file_name)
             create_unknown_file(card_name)
             play_error_sound()
             set_last_command_file_name(command_file_name)
@@ -111,7 +110,7 @@ def doit():
 
 def end_read(signum, frame):
     global run
-    logger.info("\nCtrl+C captured, ending read.")
+    logger.info('\nCtrl+C captured, ending read.')
     run = False
     reader.cleanup()
     xmms2ctl.pause()
@@ -119,8 +118,4 @@ def end_read(signum, frame):
 
 
 def handle_hup(signum, frame):
-    logger.warning("SIGHUP received")
-
-
-signal.signal(signal.SIGINT, end_read)
-signal.signal(signal.SIGHUP, handle_hup)
+    logger.warning('SIGHUP received')

@@ -65,7 +65,7 @@ def create_unknown_file(_card_name):
 def doit():
     global run
     play_success_sound()
-    logger.info('entering forever loop')
+    logger.info('entering forever loop uid=%d, gid=%d', os.getuid(), os.getgid())
     while run:
         logger.info('in forever loop')
         last_read_time = time.time()

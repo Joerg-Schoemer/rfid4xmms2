@@ -2,7 +2,7 @@
 
 import logging
 import signal
-from multiprocessing import Process
+from multiprocessing import Process, freeze_support, set_start_method
 
 from rfid4xmms2 import application
 from rfid4xmms2.observer import doit, end_read, handle_hup
@@ -11,7 +11,8 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 if __name__ == '__main__':
-    application.logger.info('starting...')
+    freeze_support()
+    set_start_method('spawn')
     observer_process = Process(target=doit)
     observer_process.start()
     signal.signal(signal.SIGINT, end_read)

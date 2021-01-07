@@ -65,22 +65,17 @@ def create_unknown_file(_card_name):
 def doit():
     global run
     play_success_sound()
-    logger.info('entering forever loop uid=%d, gid=%d', os.getuid(), os.getgid())
     while run:
-        logger.info('in forever loop')
         last_read_time = time.time()
         time.sleep(0.1)
         reader.wait_for_tag()
-        logger.info('after wait_for_tag')
 
         (error, data) = reader.request()
-        logger.info('after request')
         if error:
             set_last_command_file_name(None)
             continue
 
         (error, uid) = reader.anticoll()
-        logger.info('after anticoll')
         if error:
             set_last_command_file_name(None)
             continue
@@ -108,7 +103,6 @@ def doit():
         play_success_sound()
         if play_card is not None and play_card:
             xmms2ctl.start()
-    logger.info('leaving forever loop')
 
 
 def end_read(signum, frame):
@@ -117,7 +111,6 @@ def end_read(signum, frame):
     run = False
     reader.cleanup()
     xmms2ctl.pause()
-    sys.exit()
 
 
 def handle_hup(signum, frame):

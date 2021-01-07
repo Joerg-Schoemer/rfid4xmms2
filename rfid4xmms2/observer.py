@@ -17,7 +17,6 @@ xmms2ctl = Xmms2Ctl(config.SCRIPTS_DIR, config.COMMANDS_DIR)
 run = True
 reader = RFID()
 last_command_file_name = None
-print('name on observer %s' % __name__)
 logger = logging.getLogger(__name__)
 
 
@@ -68,16 +67,20 @@ def doit():
     play_success_sound()
     logger.info('entering forever loop')
     while run:
+        logger.info('in forever loop')
         last_read_time = time.time()
         time.sleep(0.1)
         reader.wait_for_tag()
+        logger.info('after wait_for_tag')
 
         (error, data) = reader.request()
+        logger.info('after request')
         if error:
             set_last_command_file_name(None)
             continue
 
         (error, uid) = reader.anticoll()
+        logger.info('after anticoll')
         if error:
             set_last_command_file_name(None)
             continue

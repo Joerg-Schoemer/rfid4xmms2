@@ -1,5 +1,7 @@
-from logging import info
+import logging
 from os import environ
+
+logger = logging.getLogger(__name__)
 
 
 class Config:
@@ -12,9 +14,9 @@ class Config:
     UNKNOWN_DIR = environ.get('UNKNOWN_DIR') or './unknown'
 
     def __init__(self):
-        info("COMMANDS_DIR: %s" % self.COMMANDS_DIR)
-        info("MEDIA_LIB: %s" % self.MEDIA_LIB)
-        info("SCRIPTS_DIR: %s" % self.SCRIPTS_DIR)
-        info("SECRET_KEY: %s" % self.SECRET_KEY)
-        info("SOUNDS_DIR: %s" % self.SOUNDS_DIR)
-        info("UNKNOWN_DIR: %s" % self.UNKNOWN_DIR)
+        logger.info("COMMANDS_DIR: %s" % self.COMMANDS_DIR)
+        logger.info("MEDIA_LIB: %s" % self.MEDIA_LIB)
+        logger.info("SCRIPTS_DIR: %s" % self.SCRIPTS_DIR)
+        logger.info("SECRET_KEY: %s" % self.SECRET_KEY)
+        logger.info("SOUNDS_DIR: %s" % self.SOUNDS_DIR)
+        logger.info("UNKNOWN_DIR: %s" % self.UNKNOWN_DIR)

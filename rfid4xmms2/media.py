@@ -12,7 +12,7 @@ class MediaCtl:
         result = run([join(application.config['SCRIPTS_DIR'], 'read_titles.sh')], stdout=PIPE, stderr=PIPE,
                      universal_newlines=True)
         if result.returncode != 0:
-            application.logger.warning('read_titles.sh returned %d' % result.returncode)
+            application.logger.warning('read_titles.sh returned %d', result.returncode)
             return []
 
         titles = []
@@ -26,7 +26,7 @@ class MediaCtl:
             [join(application.config['SCRIPTS_DIR'], 'read_albums.sh'), application.config['COMMANDS_DIR']],
             stdout=PIPE, stderr=PIPE, universal_newlines=True)
         if result.returncode != 0:
-            application.logger.warning('read_albums.sh returned %d' % result.returncode)
+            application.logger.warning('read_albums.sh returned %d', result.returncode)
             return []
 
         albums = []

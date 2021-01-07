@@ -8,11 +8,10 @@ from rfid4xmms2 import application
 from rfid4xmms2.observer import doit, end_read, handle_hup
 
 logging.basicConfig(level=logging.DEBUG)
-print('name on main %s' % __name__)
 logger = logging.getLogger(__name__)
 
 if __name__ == '__main__':
-    logger.info('starting...')
+    application.logger.info('starting...')
     observer_process = Process(target=doit)
     observer_process.start()
     signal.signal(signal.SIGINT, end_read)

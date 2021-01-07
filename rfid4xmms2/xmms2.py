@@ -27,6 +27,9 @@ class Xmms2Ctl:
     def start(self):
         self.action('play')
 
+    def pause(self):
+        self.action('pause')
+
     def clear(self):
         self.action('clear')
 

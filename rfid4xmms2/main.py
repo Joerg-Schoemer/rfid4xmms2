@@ -58,12 +58,12 @@ def command_file_name_not_changed(_command_file_name):
     return last_command_file_name == _command_file_name
 
 
-def end_read():
+def end_read(signum: int, frame):
     global run
     logging.info("\nCtrl+C captured, ending read.")
     run = False
     reader.cleanup()
-    xmms2ctl.stop()
+    xmms2ctl.pause()
     sys.exit()
 
 

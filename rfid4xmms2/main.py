@@ -58,7 +58,7 @@ def command_file_name_not_changed(_command_file_name):
     return last_command_file_name == _command_file_name
 
 
-def end_read(signum: int, frame):
+def end_read(signum, frame):
     global run
     logging.info("\nCtrl+C captured, ending read.")
     run = False

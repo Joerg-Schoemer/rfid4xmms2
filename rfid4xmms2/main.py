@@ -84,7 +84,7 @@ def doit():
             continue
 
         card_name = generate_file_name(uid)
-        logging.info('card_name %s' % card_name)
+        logging.debug('card_name %s' % card_name)
         command_file_name = generate_command_file_name(card_name)
         if time.time() - last_read_time < 0.5 and command_file_name_not_changed(command_file_name):
             continue

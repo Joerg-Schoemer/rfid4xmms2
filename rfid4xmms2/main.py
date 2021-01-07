@@ -4,14 +4,14 @@ import grp
 import logging
 import os
 import pwd
+import signal
 import sys
 import time
-import signal
 from os.path import join
 from pathlib import Path
 
-import pygame
 from pirc522 import RFID
+from pygame import mixer
 
 from config import Config
 from xmms2 import Xmms2Ctl
@@ -25,11 +25,11 @@ last_command_file_name = None
 
 
 def play_sound(_file):
-    if not pygame.mixer.get_init():
-        pygame.mixer.init()
-    pygame.mixer.music.load(_file)
-    pygame.mixer.music.play()
-    while pygame.mixer.music.get_busy():
+    if not mixer.get_init():
+        mixer.init()
+    mixer.music.load(_file)
+    mixer.music.play()
+    while mixer.music.get_busy():
         time.sleep(0.2)
 
 
@@ -56,19 +56,6 @@ def set_last_command_file_name(_file):
 
 def command_file_name_not_changed(_command_file_name):
     return last_command_file_name == _command_file_name
-
-
-def end_read(signum, frame):
-    global run
-    logging.info("\nCtrl+C captured, ending read.")
-    run = False
-    reader.cleanup()
-    xmms2ctl.pause()
-    sys.exit()
-
-
-def handle_hup():
-    logging.warning("SIGHUP received")
 
 
 def create_unknown_file(_card_name):
@@ -119,6 +106,19 @@ def doit():
         play_success_sound()
         if play_card is not None and play_card:
             xmms2ctl.start()
+
+
+def end_read(signum, frame):
+    global run
+    logging.info("\nCtrl+C captured, ending read.")
+    run = False
+    reader.cleanup()
+    xmms2ctl.pause()
+    sys.exit()
+
+
+def handle_hup(signum, frame):
+    logging.warning("SIGHUP received")
 
 
 signal.signal(signal.SIGINT, end_read)

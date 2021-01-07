@@ -18,6 +18,8 @@ xmms2ctl = Xmms2Ctl(config.SCRIPTS_DIR, config.COMMANDS_DIR)
 run = True
 reader = RFID()
 last_command_file_name = None
+print('name on observer %s' % __name__)
+logger = logging.getLogger(__name__)
 
 
 def play_sound(_file):
@@ -65,7 +67,7 @@ def create_unknown_file(_card_name):
 def doit():
     global run
     play_success_sound()
-    logging.info('entering forever loop')
+    logger.info('entering forever loop')
     while run:
         last_read_time = time.time()
         time.sleep(0.1)
@@ -82,13 +84,13 @@ def doit():
             continue
 
         card_name = generate_file_name(uid)
-        logging.info('card_name %s' % card_name)
+        logger.info('card_name %s' % card_name)
         command_file_name = generate_command_file_name(card_name)
         if time.time() - last_read_time < 0.5 and command_file_name_not_changed(command_file_name):
             continue
 
         if not Path(command_file_name).is_file():
-            logging.info('command file \'' + command_file_name + '\' not found')
+            logger.info('command file \'' + command_file_name + '\' not found')
             create_unknown_file(card_name)
             play_error_sound()
             set_last_command_file_name(command_file_name)
@@ -104,12 +106,12 @@ def doit():
         play_success_sound()
         if play_card is not None and play_card:
             xmms2ctl.start()
-    logging.info('leaving forever loop')
+    logger.info('leaving forever loop')
 
 
 def end_read(signum, frame):
     global run
-    logging.info("\nCtrl+C captured, ending read.")
+    logger.info("\nCtrl+C captured, ending read.")
     run = False
     reader.cleanup()
     xmms2ctl.pause()
@@ -117,7 +119,7 @@ def end_read(signum, frame):
 
 
 def handle_hup(signum, frame):
-    logging.warning("SIGHUP received")
+    logger.warning("SIGHUP received")
 
 
 signal.signal(signal.SIGINT, end_read)

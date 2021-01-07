@@ -13,6 +13,7 @@ from rfid4xmms2.observer import xmms2ctl as xmms2Ctl
 cardCtl = CardCtl()
 mediaCtl = MediaCtl()
 
+
 @application.route('/')
 @application.route('/index')
 def index():

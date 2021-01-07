@@ -31,6 +31,7 @@ def cards():
         return redirect(url_for('cards'))
 
     xmms2ctl.play_card(card_name_)
+    xmms2ctl.start()
     return redirect(url_for('player'))
 
 

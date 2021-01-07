@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 
-from rfid4xmms2 import application
+import logging
 from multiprocessing import Process
+
+from rfid4xmms2 import application
 from rfid4xmms2.observer import doit
 
+logging.basicConfig(level=logging.INFO)
 
 if __name__ == '__main__':
     observer_process = Process(target=doit)

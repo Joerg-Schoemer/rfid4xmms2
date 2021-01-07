@@ -11,11 +11,9 @@ from pathlib import Path
 from pirc522 import RFID
 from pygame import mixer
 
-from rfid4xmms2.config import Config
+from rfid4xmms2 import config
 from rfid4xmms2.xmms2 import Xmms2Ctl
 
-logging.basicConfig(level=logging.INFO)
-config = Config()
 xmms2ctl = Xmms2Ctl(config.SCRIPTS_DIR, config.COMMANDS_DIR)
 run = True
 reader = RFID()
@@ -67,6 +65,7 @@ def create_unknown_file(_card_name):
 def doit():
     global run
     play_success_sound()
+    logging.info('entering forever loop')
     while run:
         last_read_time = time.time()
         time.sleep(0.1)
@@ -83,7 +82,7 @@ def doit():
             continue
 
         card_name = generate_file_name(uid)
-        logging.debug('card_name %s' % card_name)
+        logging.info('card_name %s' % card_name)
         command_file_name = generate_command_file_name(card_name)
         if time.time() - last_read_time < 0.5 and command_file_name_not_changed(command_file_name):
             continue
@@ -105,6 +104,7 @@ def doit():
         play_success_sound()
         if play_card is not None and play_card:
             xmms2ctl.start()
+    logging.info('leaving forever loop')
 
 
 def end_read(signum, frame):

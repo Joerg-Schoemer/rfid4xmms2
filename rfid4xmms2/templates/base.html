@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+    <title>{%- block header_title %}{% endblock -%}</title>
+</head>
+<body>
+
+<div class="jumbotron-fluid text-center pt-2">
+    <h4>Dein <em class='fab fa-raspberry-pi'></em> als kindgerechter mp3-Player.</h4>
+</div>
+
+<nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav justify-content-center">
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('cards') }}">zugewiesene Karten anzeigen</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('unknown_cards') }}">neue Karte zuweisen</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('upload') }}">mp3-Dateien hochladen</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('player') }}">was läuft gerade</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="mb-3 mt-3 col-12">
+            <h5>
+                {%- block title %}
+                {%- endblock %}
+            </h5>
+        </div>
+    </div>
+    <div class="row pb-4">
+        {%- block content %}
+        {%- endblock %}
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+</body>
+</html>

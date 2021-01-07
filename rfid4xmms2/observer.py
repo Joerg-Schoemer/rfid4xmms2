@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import grp
 import logging
 import os
@@ -13,8 +11,8 @@ from pathlib import Path
 from pirc522 import RFID
 from pygame import mixer
 
-from config import Config
-from xmms2 import Xmms2Ctl
+from rfid4xmms2.config import Config
+from rfid4xmms2.xmms2 import Xmms2Ctl
 
 logging.basicConfig(level=logging.INFO)
 config = Config()
@@ -68,6 +66,7 @@ def create_unknown_file(_card_name):
 
 def doit():
     global run
+    play_success_sound()
     while run:
         last_read_time = time.time()
         time.sleep(0.1)
@@ -123,5 +122,3 @@ def handle_hup(signum, frame):
 
 signal.signal(signal.SIGINT, end_read)
 signal.signal(signal.SIGHUP, handle_hup)
-play_success_sound()
-doit()

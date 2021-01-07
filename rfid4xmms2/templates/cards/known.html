@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+con{% block header_title %}Zugewiesene Karten{% endblock %}
+{% block title %}Hier siehst Du die bereits zugewiesenen Karten.{% endblock %}
+{% block content %}
+    {% if cards %}
+        <div class="col-12">
+            <input class="form-control" id="search-field" type="text" placeholder="Suchen…">
+        </div>
+        <div class="table-responsive-sm col-12">
+            <table class="table table-bordered table-striped table-hover">
+                <caption>Zugewiesene Karten</caption>
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Name</th>
+<!--                    <th scope="col">Karten ID</th> -->
+                    <th scope="col">Art</th>
+                    <th scope="col">Aktionen</th>
+                </tr>
+                </thead>
+                <tbody id="known-cards">
+                {%- for card in cards %}
+                    <tr>
+                        <td class="align-middle">{{ card.what }}</td>
+<!--                        <td class="align-middle">{{ card.friendly_name }}</td> -->
+                        <td class="align-middle">{{ card.kind }}</td>
+                        <td class="align-middle">
+                            <form method="post">
+                                <input type="hidden" name="card_name" value="{{ card.name }}">
+                                <input type="hidden" name="card_friendly_name" value="{{ card.friendly_name }}">
+                                <input type="hidden" name="card_kind" value="{{ card.kind }}">
+                                <input type="hidden" name="card_what" value="{{ card.what }}">
+                                <input type="hidden" name="redirect" value="{{ url_for('cards') }}">
+                                <div class="btn-group">
+                                    <button class="btn-lg btn-light"
+                                            name="action"
+                                            value="play"
+                                            data-toggle="tooltip"
+                                            title="abspielen"
+                                    >
+                                        <em class='fas fa-play'></em>
+                                    </button>
+                                    <button class="btn-lg btn-success"
+                                            name="action"
+                                            value="edit"
+                                            formmethod="post"
+                                            formaction="{{ url_for('edit') }}"
+                                            data-toggle="tooltip"
+                                            title="bearbeiten"
+                                    >
+                                        <em class="fas fa-edit"></em>
+                                    </button>
+                                    <button class="btn-lg btn-danger"
+                                            name="action"
+                                            value="delete"
+                                            data-toggle="tooltip"
+                                            title="aufheben"
+                                    >
+                                        <em class="fas fa-trash"></em>
+                                    </button>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                {%- endfor %}
+                </tbody>
+            </table>
+        </div>
+        <script>
+            $(document).ready(function () {
+                $("#search-field").on("keyup", function () {
+                    var value = $(this).val().toLowerCase();
+                    $("#known-cards tr").filter(function () {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                });
+            });
+
+        </script>
+    {% else %}
+        <div class="col-12 pt-2">
+            <p>Leider wurden keine verknüpften Karten gefunden.</p>
+            <p>Du kannst unter dem Menüpunkt <a href="{{ url_for('unknown_cards') }}">neue Karte zuweisen</a> neue Katen
+                hinzufügen.</p>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -111,6 +111,7 @@ def end_read(signum, frame):
     run = False
     reader.cleanup()
     xmms2ctl.pause()
+    sys.exit(0)
 
 
 def handle_hup(signum, frame):

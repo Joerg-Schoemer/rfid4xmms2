@@ -1,8 +1,11 @@
+import logging
 from datetime import date
 from json import loads
 from os.path import join
 from re import compile
 from subprocess import run, PIPE
+
+logger = logging.getLogger(__name__)
 
 
 class Xmms2Ctl:
@@ -19,6 +22,7 @@ class Xmms2Ctl:
         return m.group(1)
 
     def action(self, action: str):
+        logger.info('xmms2_action.sh %s', action)
         run([join(self.scripts_dir, 'xmms2_action.sh'), action])
 
     def stop(self):

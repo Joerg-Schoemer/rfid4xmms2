@@ -8,7 +8,7 @@ from flask import render_template, request, redirect, url_for
 from rfid4xmms2 import application
 from rfid4xmms2.cards import CardCtl
 from rfid4xmms2.media import MediaCtl
-from rfid4xmms2.observer import xmms2ctl as xmms2Ctl
+from rfid4xmms2.observer import xmms2ctl
 
 cardCtl = CardCtl()
 mediaCtl = MediaCtl()
@@ -30,7 +30,7 @@ def cards():
         cardCtl.release_action(card_name_)
         return redirect(url_for('cards'))
 
-    xmms2Ctl.play_card(card_name_)
+    xmms2ctl.play_card(card_name_)
     return redirect(url_for('player'))
 
 
@@ -107,7 +107,7 @@ def upload():
 @application.route('/media/player', methods=['POST', 'GET'])
 def player():
     if request.method == 'GET' or request.form['action'] == 'reload':
-        return render_template('media/player.html', whats_playing=xmms2Ctl.whats_playing())
+        return render_template('media/player.html', whats_playing=xmms2ctl.whats_playing())
 
-    xmms2Ctl.action(request.form['action'])
-    return render_template('media/player.html', whats_playing=xmms2Ctl.whats_playing())
+    xmms2ctl.action(request.form['action'])
+    return render_template('media/player.html', whats_playing=xmms2ctl.whats_playing())

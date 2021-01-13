@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block header_title %} mp3-Dateien hochladen {% endblock %}
+{% block title %} Hier kannst Du neue mp3- oder m4a-Dateien auf den mp3-Player hochladen. {% endblock %}
+{%- block content %}
+    <div class="col-12">
+        <p>
+            Falls Du m4a-Dateien auswählst, werden diese auf dem <em class='fab fa-raspberry-pi'></em>
+            nach dem hochladen in mp3-Dateien konvertiert.
+        </p>
+        <p>
+            Anhand des ID3-Tag werden Künstler, Album, Track und Titel ermittelt, so dass die Dateien in das Verzeichnis
+            nach dem Muster "{Künstler}/{Album}/{Track} {Titel}" unter der Mediathek bewegt werden.
+        </p>
+        <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <input class="form-control-file" type="file" name="mp3" multiple id="files">
+            </div>
+            <div class="btn-group">
+                <button type="submit" class="btn-lg btn-primary" data-toggle="tooltip" title="hochladen" value="Upload">
+                    <em class="fas fa-upload"></em>
+                </button>
+            </div>
+        </form>
+    </div>
+{%- endblock %}

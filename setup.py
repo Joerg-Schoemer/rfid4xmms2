@@ -7,10 +7,10 @@ with open("README.md", "r") as fh:
 
 setup(
     name="rfid4xmms2",
-    version="1.0.0",
+    version="2.0",
     author="Schömer, Jörg",
     author_email="joerg@joerg-schoemer.de",
-    description="control xmms2 on a Raspberry PI",
+    description="control xmms2 on a Raspberry PI by using rfid cards",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/Joerg-Schoemer/rfid4xmms2",

@@ -15,7 +15,7 @@ dictConfig({
         'formatter': 'default'
     }},
     'root': {
-        'level': 'DEBUG',
+        'level': 'WARNING',
         'handlers': ['wsgi']
     }
 })

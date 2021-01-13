@@ -7,7 +7,7 @@ from multiprocessing import Process, freeze_support, set_start_method
 from rfid4xmms2 import application
 from rfid4xmms2.observer import doit, end_read, handle_hup
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
 
 if __name__ == '__main__':

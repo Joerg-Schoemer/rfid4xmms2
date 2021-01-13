@@ -1,0 +1,16 @@
+[Unit]
+Description=Daemon reading rfid to controll xmms2 and serve a WebUI
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+Environment="UNKNOWN_DIR=/home/pi/rfid4xmms2/unknown" "COMMANDS_DIR=/home/pi/rfid4xmms2/commands" "MEDIA_LIB=/home/pi/music" "SCRIPTS_DIR=/home/pi/rfid4xmms2/scripts" "SOUNDS_DIR=/home/pi/rfid4xmms2/sounds"
+User=pi
+Group=gpio
+WorkingDirectory=/home/pi/rfid4xmms2
+ExecStart=/home/pi/rfid4xmms2/main.py
+TimeoutStopSec=2
+
+[Install]
+WantedBy=multi-user.target

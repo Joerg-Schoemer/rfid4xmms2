@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{%- block header_title %}Der Karte {{ card.friendly_name }} etwas zuweisen{% endblock %}
+{% block title %}
+    Ändere die Zuweisung dieser Karte:
+{% endblock %}
+{%- block content %}
+    <div class="col-12">
+        <form method="post">
+            <input type="hidden" name="card_name" value="{{ card.name }}">
+            <input type="hidden" name="redirect" value="{{ redirect }}">
+            <div class="form-group">
+                <label for="card-name">Kartenname:</label>
+                <input class="form-control" type="text" readonly value="{{ card.friendly_name }}" id="card-name">
+            </div>
+            <div class="form-group">
+                <label for="card_kind">Art der Zuweisung:</label>
+                <select class="form-control" id="card_kind" name="card_kind">
+                    {% for kind in card_kinds -%}
+                        <option{{ ' selected' if kind ==  card.kind }}>{{ kind }}</option>
+                    {% endfor -%}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="card_what">Was ist zugewiesen:</label>
+                <input class="form-control" type="text" name="card_what" id="card_what" value="{{ card.what }}">
+            </div>
+
+            <div class="btn-group">
+                <button class="btn-lg btn-success" name="action" value="save"><em class='fas fa-save'></em></button>
+                <button class="btn-lg btn-light" name="action" value="cancel"><em class='fas fa-times'></em>
+                </button>
+            </div>
+        </form>
+    </div>
+{%- endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block header_title %}Willkommen auf {{ hostname }}{% endblock %}
+{% block title %}
+    Herzlich willkommen an Deinem mp3-Player auf {{ hostname }} <em class='fas fa-heart' style='color:red;'></em>.
+{% endblock %}
+{%- block content %}
+    <div class="col-12">
+        <p>
+            Hier kannst Du neue Audio-Dateien <em class='far fa-file-audio'></em>
+            <a href="{{ url_for('upload') }}">hochladen</a> oder einer neuen Karte <em class="far fa-credit-card"></em>
+            ein Album <em class="fas fa-music"></em> <a href="{{ url_for('unknown_cards') }}">zuweisen</a>.
+        </p>
+    </div>
+{%- endblock %}

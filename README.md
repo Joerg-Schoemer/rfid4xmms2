@@ -1,6 +1,6 @@
 # rfid4xmms2
 
-A project to control xmms2 on a Raspberry PI with an rc522 rfid reader
+A project to control xmms2 on a Raspberry PI with an rc522 rfid reader. Also provides a WEB-UI to see what is assigned to rfid and edit those assignments.
 
 ## hardware requirements
 
@@ -12,6 +12,7 @@ A project to control xmms2 on a Raspberry PI with an rc522 rfid reader
 
 * xmms2
 * xmms2-client-medialib-updater
+* eyeD3
 
 ### configure xmms2 medialib updater
 

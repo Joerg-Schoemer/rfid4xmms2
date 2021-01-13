@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
-con{% block header_title %}Zugewiesene Karten{% endblock %}
-{% block title %}Hier siehst Du die bereits zugewiesenen Karten.{% endblock %}
+{% block header_title %}Zugewiesene Karten{% endblock %}
+{% block title %}Hier siehst Du die bereits zugewiesenen Karten und kannst diese abspielen.{% endblock %}
 {% block content %}
-    {% if cards %}
+    {%- if cards %}
         <div class="col-12">
             <input class="form-control" id="search-field" type="text" placeholder="Suchen…">
         </div>
@@ -12,7 +12,6 @@ con{% block header_title %}Zugewiesene Karten{% endblock %}
                 <thead class="thead-dark">
                 <tr>
                     <th scope="col">Name</th>
-<!--                    <th scope="col">Karten ID</th> -->
                     <th scope="col">Art</th>
                     <th scope="col">Aktionen</th>
                 </tr>
@@ -21,7 +20,6 @@ con{% block header_title %}Zugewiesene Karten{% endblock %}
                 {%- for card in cards %}
                     <tr>
                         <td class="align-middle">{{ card.what }}</td>
-<!--                        <td class="align-middle">{{ card.friendly_name }}</td> -->
                         <td class="align-middle">{{ card.kind }}</td>
                         <td class="align-middle">
                             <form method="post">
@@ -35,7 +33,7 @@ con{% block header_title %}Zugewiesene Karten{% endblock %}
                                             name="action"
                                             value="play"
                                             data-toggle="tooltip"
-                                            title="abspielen"
+                                            title="Karte abspielen"
                                     >
                                         <em class='fas fa-play'></em>
                                     </button>
@@ -45,7 +43,7 @@ con{% block header_title %}Zugewiesene Karten{% endblock %}
                                             formmethod="post"
                                             formaction="{{ url_for('edit') }}"
                                             data-toggle="tooltip"
-                                            title="bearbeiten"
+                                            title="Zuordnung bearbeiten"
                                     >
                                         <em class="fas fa-edit"></em>
                                     </button>
@@ -53,7 +51,7 @@ con{% block header_title %}Zugewiesene Karten{% endblock %}
                                             name="action"
                                             value="delete"
                                             data-toggle="tooltip"
-                                            title="aufheben"
+                                            title="Zuordnung aufheben"
                                     >
                                         <em class="fas fa-trash"></em>
                                     </button>
@@ -76,11 +74,11 @@ con{% block header_title %}Zugewiesene Karten{% endblock %}
             });
 
         </script>
-    {% else %}
+    {%- else %}
         <div class="col-12 pt-2">
             <p>Leider wurden keine verknüpften Karten gefunden.</p>
-            <p>Du kannst unter dem Menüpunkt <a href="{{ url_for('unknown_cards') }}">neue Karte zuweisen</a> neue Katen
+            <p>Du kannst unter dem Menüpunkt <a href="{{ url_for('unknown_cards') }}">neue Karte zuweisen</a> neue Karten
                 hinzufügen.</p>
         </div>
-    {% endif %}
+    {%- endif %}
 {% endblock %}

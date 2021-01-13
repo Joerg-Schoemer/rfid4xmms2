@@ -1,5 +1,7 @@
 [Unit]
 Description=Daemon reading rfid to controll xmms2 and serve a WebUI
+Wants=network-online.target
+After=network-online.target
 
 [Service]
 Type=simple

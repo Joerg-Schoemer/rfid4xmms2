@@ -1,7 +1,4 @@
-import grp
 import logging
-import os
-import pwd
 import sys
 import time
 from os.path import join
@@ -57,9 +54,6 @@ def command_file_name_not_changed(_command_file_name):
 def create_unknown_file(_card_name):
     file_name = join(config.UNKNOWN_DIR, _card_name)
     Path(file_name).touch()
-    _uid = pwd.getpwnam('pi').pw_uid
-    _gid = grp.getgrnam('pi').gr_gid
-    os.chown(file_name, _uid, _gid)
 
 
 def doit():
